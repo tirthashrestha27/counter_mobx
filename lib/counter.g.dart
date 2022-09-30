@@ -24,6 +24,37 @@ mixin _$Counter on _Counter, Store {
     });
   }
 
+  late final _$addValueAtom = Atom(name: '_Counter.addValue', context: context);
+
+  @override
+  int get addValue {
+    _$addValueAtom.reportRead();
+    return super.addValue;
+  }
+
+  @override
+  set addValue(int value) {
+    _$addValueAtom.reportWrite(value, super.addValue, () {
+      super.addValue = value;
+    });
+  }
+
+  late final _$minusValueAtom =
+      Atom(name: '_Counter.minusValue', context: context);
+
+  @override
+  int get minusValue {
+    _$minusValueAtom.reportRead();
+    return super.minusValue;
+  }
+
+  @override
+  set minusValue(int value) {
+    _$minusValueAtom.reportWrite(value, super.minusValue, () {
+      super.minusValue = value;
+    });
+  }
+
   late final _$_CounterActionController =
       ActionController(name: '_Counter', context: context);
 
@@ -63,7 +94,9 @@ mixin _$Counter on _Counter, Store {
   @override
   String toString() {
     return '''
-value: ${value}
+value: ${value},
+addValue: ${addValue},
+minusValue: ${minusValue}
     ''';
   }
 }
