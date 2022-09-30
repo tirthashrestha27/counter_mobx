@@ -3,18 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobxproject/counter.dart';
 import 'package:mobxproject/widget.dart';
+import 'package:provider/provider.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class NewHome extends StatefulWidget {
+  const NewHome({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<NewHome> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  final Counter counter = Counter();
+class _MyHomePageState extends State<NewHome> {
+  Counter counter = Counter();
+
+  @override
+  void didChangeDependencies() async {
+    counter = Provider.of<Counter>(context, listen: false);
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 }),
             Row(
               children: [
-                Observer(builder: (_) {
+                Observer(builder: (context) {
                   return customTextButton(
                     textTitle: 'Total + Button Pressed',
                     context: context,
@@ -73,14 +81,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         ('You have pressed + button ${counter.addValue} times'),
                   );
                 }),
-                Observer(builder: (_) {
+                Observer(builder: (context) {
                   return Text(
                     '${counter.addValue}',
                     style: Theme.of(context).textTheme.headline4,
                   );
                 })
               ],
-            )
+            ),
           ],
         ),
       ),

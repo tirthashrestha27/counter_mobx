@@ -38,6 +38,6 @@ customTextButton(
 customSnackBar(BuildContext context, String snackBarText) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: Text(snackBarText),
-    duration: Duration(seconds: 2),
+    duration: const Duration(seconds: 2),
   ));
 }
